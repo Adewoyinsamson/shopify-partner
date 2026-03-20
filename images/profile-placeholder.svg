@@ -1,0 +1,5 @@
+<svg width="300" height="300" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="150" cy="150" r="140" fill="#e0e0e0" stroke="#96bf48" stroke-width="4"/>
+    <text x="150" y="165" font-size="20" text-anchor="middle" fill="#666">Profile</text>
+    <text x="150" y="190" font-size="20" text-anchor="middle" fill="#666">Photo</text>
+</svg>
