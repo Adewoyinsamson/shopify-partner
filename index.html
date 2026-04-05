@@ -329,7 +329,7 @@
           </div>
         </div>
         <div class="fade-up fade-up--delay">
-          <form class="contact-form" action="https://formspree.io/f/mkoppqoj" method="POST">
+         <form class="contact-form" id="contactForm">
             <div class="form-row">
               <div class="form-group">
                 <label for="fname">First Name</label>
@@ -377,25 +377,68 @@
     </div>
   </footer>
  
-  <script>
-    const navbar = document.getElementById('navbar');
-    window.addEventListener('scroll', () => {
-      navbar.classList.toggle('scrolled', window.scrollY > 20);
-    });
- 
-    const toggle = document.getElementById('navToggle');
-    toggle.addEventListener('click', () => navbar.classList.toggle('open'));
- 
-    document.querySelectorAll('.nav-links a').forEach(link => {
-      link.addEventListener('click', () => navbar.classList.remove('open'));
-    });
- 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-    }, { threshold: 0.12 });
-    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
- 
-   
+ <script>
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 20);
+  });
+
+  const toggle = document.getElementById('navToggle');
+  toggle.addEventListener('click', () => navbar.classList.toggle('open'));
+
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => navbar.classList.remove('open'));
+  });
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  // Contact form - Formspree fetch submission
+  const form = document.getElementById('contactForm');
+  form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const btn = form.querySelector('.form-submit');
+    btn.textContent = 'Sending…';
+    btn.disabled = true;
+
+    const data = {
+      fname: document.getElementById('fname').value,
+      lname: document.getElementById('lname').value,
+      email: document.getElementById('email').value,
+      service: document.getElementById('service').value,
+      message: document.getElementById('message').value
+    };
+
+    try {
+      const response = await fetch('https://formspree.io/f/mkoppqoj', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+
+      if (response.ok) {
+        btn.textContent = 'Message Sent ✓';
+        btn.style.background = 'rgba(150,247,164,.2)';
+        btn.style.color = 'var(--accent)';
+        btn.style.border = '1px solid rgba(150,247,164,.3)';
+        form.reset();
+        setTimeout(() => {
+          btn.textContent = 'Send Message →';
+          btn.style.cssText = '';
+          btn.disabled = false;
+        }, 3000);
+      } else {
+        btn.textContent = 'Something went wrong. Try again.';
+        btn.disabled = false;
+      }
+    } catch (err) {
+      btn.textContent = 'Network error. Try again.';
+      btn.disabled = false;
+    }
+  });
+</script>
     }
   </script>
  
