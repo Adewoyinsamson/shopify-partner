@@ -282,7 +282,7 @@
   </section>
  
   <div class="divider"></div>
- 
+   
   <!-- CONTACT -->
   <section id="contact">
     <div class="section-max">
@@ -395,20 +395,7 @@
     }, { threshold: 0.12 });
     document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
  
-    function handleSubmit(e) {
-      e.preventDefault();
-      const btn = e.target.querySelector('.form-submit');
-      btn.textContent = 'Message Sent ✓';
-      btn.style.background = 'rgba(150,247,164,.2)';
-      btn.style.color = 'var(--accent)';
-      btn.style.border = '1px solid rgba(150,247,164,.3)';
-      setTimeout(() => {
-        btn.textContent = 'Send Message →';
-        btn.style.background = 'var(--accent)';
-        btn.style.color = '#000';
-        btn.style.border = 'none';
-        e.target.reset();
-      }, 3000);
+   
     }
   </script>
  
